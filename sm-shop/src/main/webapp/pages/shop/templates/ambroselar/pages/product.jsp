@@ -32,42 +32,67 @@
 						style="padding-top: 40px !important;">
 						<div class="row">
 							<div class="col-lg-5 col-md-7 col-sm-7 col-xs-12">
-								<div class="tab-content">
-									<div class="tab-pane active" id="view1">
-										<a class="image-link" href="${product.image.imageUrl}"><img
-											src="${product.image.imageUrl}" alt=""></a>
-									</div>
-									<c:if
-										test="${product.images!=null && fn:length(product.images) gt 1}">
-										<c:forEach items="${product.images}" var="thumbnail">
-											<c:if test="${thumbnail.imageType==0}">
-												<div class="tab-pane"
-													id="view<c:out value="${thumbnail.id}"/>">
-													<c:choose>
-														<c:when test="${thumbnail.externalUrl==null}">
-															<a href="<c:url value="${thumbnail.imageUrl}"/>"
-																class="image-link"
-																imgId="im-<c:out value="${thumbnail.id}"/>"
-																title="<c:out value="${thumbnail.imageName}"/>"
-																rel="<c:url value="${thumbnail.imageUrl}"/>"><img
-																src="<c:url value="${thumbnail.imageUrl}"/>"
-																alt="<c:url value="${thumbnail.imageName}"/>"></a>
-														</c:when>
-														<c:otherwise>
-															<a href="javascript:;"
-																" class="detailsThumbImg thumbImg thumbnail image-link"
-																imgId="im-<c:out value="${thumbnail.id}"/>"
-																title="<c:out value="${product.description.name}"/>"
-																rel="<c:url value="${thumbnail.externalUrl}"/>"><img
-																src="${thumbnail.externalUrl}"
-																alt="<c:url value="${product.description.name}"/>"></a>
-														</c:otherwise>
-													</c:choose>
-												</div>
-											</c:if>
-										</c:forEach>
+								<!-- Image column -->
+								<div id="img" class="span4 productMainImage">
+									<c:if test="${product.image!=null}">
+									<span id="mainImg"><img id="im-<c:out value="${product.image.id}"/>" alt="<c:out value="${product.description.name}"/>" src="<c:url value="${product.image.imageUrl}"/>" data-zoom-image="<sm:shopProductImage imageName="${product.image.imageName}" sku="${product.sku}" size="LARGE"/>"></span>												
+									<script>
+										$(function() {
+											setImageZoom('im-<c:out value="${product.image.id}"/>');
+										});	
+									</script>
+									<c:if test="${product.images!=null && fn:length(product.images)>1}">
+										<ul id="imageGallery" class="thumbnails small">
+											<c:forEach items="${product.images}" var="thumbnail">								
+											<li class="span2">
+												<a href="#img" class="thumbImg" title="<c:out value="${thumbnail.imageName}"/>"><img id="im-<c:out value="${thumbnail.id}"/>" src="<c:url value="${thumbnail.imageUrl}"/>" data-zoom-image="<sm:shopProductImage imageName="${thumbnail.imageName}" sku="${product.sku}" size="LARGE"/>" alt="<c:url value="${thumbnail.imageName}"/>" ></a>
+											</li>
+											</c:forEach>								
+										</ul>
+									</c:if>
 									</c:if>
 								</div>
+							
+							
+<!-- 								<div class="tab-content"> -->
+								
+								
+<!-- 									<div class="tab-pane active" id="view1"> -->
+<%-- 										<a class="image-link" href="${product.image.imageUrl}"><img --%>
+<%-- 											src="${product.image.imageUrl}" alt=""></a> --%>
+<!-- 									</div> -->
+<%-- 									<c:if --%>
+<%-- 										test="${product.images!=null && fn:length(product.images) gt 1}"> --%>
+<%-- 										<c:forEach items="${product.images}" var="thumbnail"> --%>
+<%-- 											<c:if test="${thumbnail.imageType==0}"> --%>
+<!-- 												<div class="tab-pane" -->
+<%-- 													id="view<c:out value="${thumbnail.id}"/>"> --%>
+<%-- 													<c:choose> --%>
+<%-- 														<c:when test="${thumbnail.externalUrl==null}"> --%>
+<%-- 															<a href="<c:url value="${thumbnail.imageUrl}"/>" --%>
+<!-- 																class="image-link" -->
+<%-- 																imgId="im-<c:out value="${thumbnail.id}"/>" --%>
+<%-- 																title="<c:out value="${thumbnail.imageName}"/>" --%>
+<%-- 																rel="<c:url value="${thumbnail.imageUrl}"/>"><img --%>
+<%-- 																src="<c:url value="${thumbnail.imageUrl}"/>" --%>
+<%-- 																alt="<c:url value="${thumbnail.imageName}"/>"></a> --%>
+<%-- 														</c:when> --%>
+<%-- 														<c:otherwise> --%>
+<!-- 															<a href="javascript:;" -->
+<!-- 																" class="detailsThumbImg thumbImg thumbnail image-link" -->
+<%-- 																imgId="im-<c:out value="${thumbnail.id}"/>" --%>
+<%-- 																title="<c:out value="${product.description.name}"/>" --%>
+<%-- 																rel="<c:url value="${thumbnail.externalUrl}"/>"><img --%>
+<%-- 																src="${thumbnail.externalUrl}" --%>
+<%-- 																alt="<c:url value="${product.description.name}"/>"></a> --%>
+<%-- 														</c:otherwise> --%>
+<%-- 													</c:choose> --%>
+<!-- 												</div> -->
+<%-- 											</c:if> --%>
+<%-- 										</c:forEach> --%>
+<%-- 									</c:if> --%>
+<!-- 								</div> -->
+								
 								<!-- Nav tabs -->
 								<ul class="sinple-tab-menu" role="tablist">
 									<c:if
@@ -304,7 +329,15 @@
 		    
 		})
 		
-
+			<!-- lens plugin -->
+			function setImageZoom(id) {
+			    $('#' + id).elevateZoom({
+		    			zoomType	: "lens",
+		    			lensShape : "round",
+		    			lensSize    : 240
+		   		}); 
+			}
+			
 			
 		</script>
 
