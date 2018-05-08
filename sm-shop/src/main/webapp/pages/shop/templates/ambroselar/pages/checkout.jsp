@@ -638,7 +638,8 @@ function initPayment(paymentSelection) {
 											<label><s:message code="label.generic.country" text="Country"/> <span class="required">*</span></label>
 										    <form:select cssClass="billing-country-list" path="customer.billing.country" style="background-color: rgb(255, 255, 255);">
 											  	<form:options items="${countries}" itemValue="isoCode" itemLabel="name"/>
-										     </form:select>										
+										     </form:select>	
+										     <p style="font-size: 12px;">Free shipping in Australia.For international shipping <a href="https://ambroselli.art/shop/store/contactus.html">please contact us</a> for a quote</p>									
 										</div>
 									</div>
 									<div class="col-md-6">
